@@ -33,17 +33,22 @@ def send_update(message):
         conf["first_message"] = False
         conf["last_check"] = status
         bot.send_message(message.from_user.id, text)
+        print(text)
     else:
         if conf.get("last_check") != status:
             text = f"Pi went {status} at {str(datetime.now())}"
             conf["last_check"] = status
             bot.send_message(message.from_user.id, text)
+            print(text)
 
 
 @bot.message_handler(commands=["start"])
 def start_message(message):
     scheduler.add_job(send_update, args=(message,), trigger="interval", minutes=3)
+    print('Job added')
     bot.send_message(message.from_user.id, "Welcome to Pi check")
+    send_update(message)
+    print('Initial check')
 
 
 if __name__ == "__main__":
