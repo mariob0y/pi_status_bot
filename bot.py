@@ -47,8 +47,8 @@ def start_message(message):
     scheduler.add_job(send_update, args=(message,), trigger="interval", minutes=3)
     print('Job added')
     bot.send_message(message.from_user.id, "Welcome to Pi check")
-    send_update(message)
     print('Initial check')
+    send_update(message)
 
 
 if __name__ == "__main__":
